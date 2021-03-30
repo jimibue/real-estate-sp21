@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: skillZ_yo_development
+  database: real-estate-sp21_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: skillZ_yo_test
+  database: real-estate-sp21_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: skillZ_yo_production
-  username: skillZ_yo
-  password: <%= ENV['SKILLZ_YO_DATABASE_PASSWORD'] %>
+  database: real-estate-sp21_production
+  username: real-estate-sp21
+  password: <%= ENV['real-estate-sp21_DATABASE_PASSWORD'] %>
