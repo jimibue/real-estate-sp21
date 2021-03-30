@@ -7,36 +7,60 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
+cities = [
+  'Sandy',
+  'Draper',
+  'SLC',
+  # 'Orem',
+  # 'Provo',
+  # 'Ogden',
+  # 'Layton',
+  # 'Midvale',
+  # 'Murray'
+]
 
-Skill.create(name: 'ruby', description:'Syntaz Sugar')
-Skill.create(name: 'rails', description:'Stay on the rails...Convention')
-Skill.create(name: 'react', description:'make writing UI noooice!!!')
+  10.times do
+  a = Agent.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.email,
+    phone: Faker::PhoneNumber.cell_phone
+  )
 
-# Skills could also be a homework with a grade
-Skill.create(name: 'Homework1', description:'CRUD ACTIONS!!')
-Skill.create(name: 'Homework2', description:'Cassino')
-
-5.times do
-  user = User.create(name: Faker::Name.name)
-
-  # each user will have a grade for each skill
-  5.times do |i|
-   Grade.create(user_id: user.id, skill_id: i, score: rand(100))
- end
+  5.times do
+    num_cities = rand(0..cities.length - 1);
+    Buyer.create(
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      email: Faker::Internet.email,
+      # phone: Faker::PhoneNumber.cell_phone,
+      max_price: rand(99000..1500000),
+       # TODO Num cities is 0 sometimes so buyer has no deseried cities
+      cities: cities.sample(num_cities),
+      agent_id: a.id
+    )
+  end
+  
+  5.times do
+    # TODO this is depracted change at sometime
+    sold = Faker::Boolean.boolean(0.3)
+    price = rand(99000..1500000)
+    percent_change = (-3..3).to_a.sample.to_f / 100
+    sold_price = sold ? price * (1 + percent_change) : nil
+    p = Property.create(
+      price: price,
+      sold: sold,
+      sold_price: sold_price,
+      beds: rand(1..8),
+      baths: rand(1..8),
+      sq_ft: rand(1000..7000),
+      agent_id: a.id
+  )
+  
+  p.create_address(
+    street: Faker::Address.street_address,
+    zip: Faker::Address.zip_code,
+    city: cities.sample
+  )
+  end
 end
-
-Skill.create(name: 'Java', description:'OOP')
-Skill.create(name: 'Vue', description:'Reacts competition')
-
-User.create(name: Faker::Name.name)
-User.create(name: Faker::Name.name)
-
-puts "SKILLZZ SIZE: #{Skill.all.length}"
-puts "USER SIZE: #{User.all.length}"
-puts "GRADE SIZE: #{Grade.all.length}"
-
-# grab users skill
-puts "FIRST USER SKILLs: #{User.first.skills}"
-
-# grab users firts skill grades
-puts "FIRST USER Grades: #{User.first.grades}"
