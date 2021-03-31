@@ -9,18 +9,38 @@ const Available = (props) => {
         getData()
     }, [])
 
+    const normalizeAgentData = (data) =>{
+        let allIDS = data.map(d => d.agent_id)
+        const agentSet = new Set(allIDS)
+        const agentIDS = [ ...agentSet]
+        
+        // const agentIDS = [...new Set(data.map(d => d.agent_id))]
+        
+        let normalizedData = agentIDS.map( id => {
+            let properties = data.filter(d => d.agent_id === id)
+            let name = `${properties[0].first_name} ${properties[0].last_name}`
+            let email = properties[0].email
+        
+            let agentProperties = properties.map(p=>{
+                return{beds:p.beds, baths:p.baths, sq_ft:p.sq_ft, city:p.city, price:p.price}
+            })
+            return {name, email, properties:agentProperties}
+        })
+         return normalizedData
+        }
+
     const getData = async () => {
         try {
             let res = await axios.get('/api/properties')
-
-            setProperties(res.data)
+            let normalizedAgentData = normalizeAgentData(res.data)
+            setProperties(normalizedAgentData)
         } catch (err) {
             alert('err')
             console.log(err)
         }
     }
     const renderProperties = () => {
-        return dummyData.map(agent => {
+        return properties.map(agent => {
             return (
                 <List.Item>
                     <Image avatar src='https://react.semantic-ui.com/images/avatar/small/daniel.jpg' />
@@ -69,79 +89,3 @@ const Available = (props) => {
 }
 
 export default Available
-
-// [
-//     {
-//       "property_id": 1,
-//       "beds": 7,
-//       "baths": 7,
-//       "sq_ft": 4630,
-//       "price": 163183,
-//       "sold": false,
-//       "email": "tyler.hackett@schimmel.biz",
-//       "agent_id": 1,
-//       "first_name": "Jan",
-//       "last_name": "Gusikowski",
-//       "city": "Draper",
-//       "id": null
-//     },
-//     {
-//       "property_id": 1,
-//       "beds": 7,
-//       "baths": 7,
-//       "sq_ft": 4630,
-//       "price": 163183,
-//       "sold": false,
-//       "email": "tyler.hackett@schimmel.biz",
-//       "agent_id": 1,
-//       "first_name": "Jan",
-//       "last_name": "Gusikowski",
-//       "city": "Draper",
-//       "id": null
-//     },
-// ]
-
-const dummyData = [
-    {
-        name: "Jan Gusikowski",
-        email: 'tyler.hackett@schimmel.biz',
-        properties: [{
-            "beds": 7,
-            "baths": 7,
-            "sq_ft": 4630,
-            "price": 163183,
-        },
-        {
-            "beds": 7,
-            "baths": 7,
-            "sq_ft": 4630,
-            "price": 163183,
-        }
-
-        ]
-    },
-    {
-        agentName: "Tim",
-        email: 'asdf.hackett@schimmel.biz',
-        properties: [{
-            "beds": 7,
-            "baths": 7,
-            "sq_ft": 4630,
-            "price": 163183,
-        },
-        {
-            "beds": 7,
-            "baths": 7,
-            "sq_ft": 4630,
-            "price": 163183,
-        },
-        {
-            "beds": 7,
-            "baths": 7,
-            "sq_ft": 4630,
-            "price": 163183,
-        }
-
-        ]
-    }
-]
