@@ -7,6 +7,10 @@ Rails.application.routes.draw do
 
     get "properties", to: 'properties#index'
 
+    get 'cities/list', to: 'properties#city_list'
+
+    get 'cities/:city', to: 'properties#city'
+
     resources :skills
     resources :grades
     resources :users
