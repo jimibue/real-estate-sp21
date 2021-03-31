@@ -1,85 +1,12 @@
 import axios from 'axios'
 import {useEffect, useState} from 'react'
 import {Card, Dropdown, Icon} from 'semantic-ui-react'
-import { keyframes } from 'styled-components'
-const dummyCities =[  {
-    "city": "Draper"
-  },
-  {
-    "city": "SLC"
-  },
-  {
-    "city": "Sandy"
-  }]
-
-const dummyProperties =   [
-    {
-      "id": "2",
-      "beds": 3,
-      "baths": 1,
-      "sq_ft": 4571,
-      "price": 1254737,
-      "city": "SLC",
-      "street": "91325 Cherish Garden",
-      "sold": false
-    },
-    {
-      "id": "7",
-      "beds": 7,
-      "baths": 8,
-      "sq_ft": 1976,
-      "price": 1430691,
-      "city": "SLC",
-      "street": "103 Maricruz Route",
-      "sold": false
-    },
-    {
-      "id": "15",
-      "beds": 2,
-      "baths": 3,
-      "sq_ft": 2063,
-      "price": 413886,
-      "city": "SLC",
-      "street": "583 Johnie Freeway",
-      "sold": false
-    },
-    {
-      "id": "22",
-      "beds": 2,
-      "baths": 4,
-      "sq_ft": 5050,
-      "price": 1081244,
-      "city": "SLC",
-      "street": "7223 Quentin Overpass",
-      "sold": false
-    },
-    {
-      "id": "27",
-      "beds": 1,
-      "baths": 2,
-      "sq_ft": 2882,
-      "price": 222798,
-      "city": "SLC",
-      "street": "9486 Elvis Valleys",
-      "sold": false
-    },
-    {
-      "id": "39",
-      "beds": 4,
-      "baths": 1,
-      "sq_ft": 3439,
-      "price": 815799,
-      "city": "SLC",
-      "street": "95135 Torphy Forges",
-      "sold": false
-    }
-  ]
 
 const Cities = (props)=>{
     const [cities, setCities] = useState(null)
     const [properties, setProperties] = useState(null)
 
-    useEffect(()=>{
+    useEffect(() => {
         getCities()
     },[])
 
@@ -95,9 +22,7 @@ const Cities = (props)=>{
           let normalizedCityData = normalizeCityData(res.data)
           setCities(normalizedCityData)
         }catch(err){
-            let normalizedCityData = normalizeCityData(dummyCities)
-            setCities(normalizedCityData)
-            // alert(err)
+            alert(err)
         }
     }
 
@@ -105,9 +30,8 @@ const Cities = (props)=>{
         try {
             let res = await axios.get(`/api/cities/${value}`)
             setProperties(res.data)
-        } catch (error) {
-             // alert(err)
-             setProperties(dummyProperties)
+        } catch (err) {
+             alert(err)
         }
     }
     const renderProperties = ()=> {
