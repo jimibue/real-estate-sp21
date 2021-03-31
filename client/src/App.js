@@ -13,6 +13,7 @@ import Skills from './pages/Skills';
 import UserShow from './pages/UserShow';
 import SkillShow from './pages/SkillShow';
 import Available from './pages/Available';
+import Cities from './pages/Cities';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route exact path='/about' component={About} />
         <Route exact path='/available' component={Available} />
+        <Route exact path='/cities' component={Cities} />
 {/* 
         <Route exact path='/users' component={Users} />
         <Route exact path='/users/:id' component={UserShow} />
