@@ -28,7 +28,7 @@ cities = [
   )
 
   5.times do
-    num_cities = rand(0..cities.length - 1);
+    num_cities = rand(1..cities.length - 1);
     Buyer.create(
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
