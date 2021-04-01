@@ -4,9 +4,11 @@ import { List, Image, Table } from 'semantic-ui-react'
 
 const Available = (props) => {
     const [properties, setProperties] = useState(null)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(null)
 
     useEffect(() => {
-        getData()
+        getData(1)
     }, [])
 
     const normalizeAgentData = (data) =>{
@@ -29,10 +31,13 @@ const Available = (props) => {
          return normalizedData
         }
 
-    const getData = async () => {
+    const getData = async (page = 1) => {
+      
         try {
-            let res = await axios.get('/api/properties')
-            let normalizedAgentData = normalizeAgentData(res.data)
+            let res = await axios.get(`/api/properties?page=${page}`)
+            setCurrentPage(page)
+            setTotalPages(res.data.total_pages)
+            let normalizedAgentData = normalizeAgentData(res.data.properties)
             setProperties(normalizedAgentData)
         } catch (err) {
             alert('err')
@@ -77,12 +82,25 @@ const Available = (props) => {
             )
         })
     }
+    const renderPagNav =()=>{
+        let numsJSX = []
+        for(let i = 1; i <= totalPages; i++){
+           numsJSX.push(<span 
+            onClick={()=>getData(i)}
+            style={
+               {cursor:'pointer', marginRight:'3px', color: currentPage == i ? 'red':'black' }
+            }>{i}</span>)
+        }
+        return numsJSX
+    }
+
 
     if (!properties) return <p>Loading</p>
 
     return (
         <div>
             <h1>Available</h1>
+            {renderPagNav()}
             {renderProperties()}
         </div>
     )

@@ -7,9 +7,13 @@ const FindHomes = (props)=>{
     const [agents,setAgents] = useState(null)
     const [buyers,setBuyers] = useState(null)
     const [properties, setProperties] = useState(null)
+
+    // load agents
     useEffect(()=>{
         getAgents()
     },[])
+    
+   // get agents then set agent drop down
     const getAgents = async()=>{
         try {
             let res = await axios.get('api/agents')
@@ -22,6 +26,8 @@ const FindHomes = (props)=>{
             alert(error)
         }
     }
+
+    // once agent select load agents buyers, then set buyers drop down
     const handleAgentChanged = async (e, {value})=>{
         try {
             let res = await axios.get(`/api/agents/${value}`)
@@ -33,6 +39,8 @@ const FindHomes = (props)=>{
             alert(error)
         }
     }
+
+// once buyer select load buyers properties
     const handleBuyerChanged = async(e, {value})=>{
         try {
             let res = await axios.get(`/api/buyers/${value}`)
