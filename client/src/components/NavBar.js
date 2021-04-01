@@ -61,6 +61,11 @@ class NavBar extends React.Component {
                     City
                   </Menu.Item >
                 </Link>
+                <Link to='/homes'>
+                  <Menu.Item active={location.pathname == '/homes'} >
+                    Homes
+                  </Menu.Item >
+                </Link>
                 {/* <Link to='/users'>
                   <Menu.Item active={location.pathname == '/users'} >
                     Users    
