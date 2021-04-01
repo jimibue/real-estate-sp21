@@ -11,15 +11,13 @@ cities = [
   'Sandy',
   'Draper',
   'SLC',
-  # 'Orem',
-  # 'Provo',
-  # 'Ogden',
-  # 'Layton',
-  # 'Midvale',
-  # 'Murray'
+  'Orem',
+  'Provo',
+  'Ogden',
+  'Layton',
 ]
 
-  10.times do
+  20.times do
   a = Agent.create(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -27,7 +25,7 @@ cities = [
     phone: Faker::PhoneNumber.cell_phone
   )
 
-  5.times do
+  50.times do
     num_cities = rand(1..cities.length - 1);
     Buyer.create(
       first_name: Faker::Name.first_name,
@@ -35,15 +33,13 @@ cities = [
       email: Faker::Internet.email,
       # phone: Faker::PhoneNumber.cell_phone,
       max_price: rand(99000..1500000),
-       # TODO Num cities is 0 sometimes so buyer has no deseried cities
       cities: cities.sample(num_cities),
       agent_id: a.id
     )
   end
   
-  5.times do
-    # TODO this is depracted change at sometime
-    sold = Faker::Boolean.boolean(0.3)
+  50.times do
+    sold = rand(10).odd? ? true: false
     price = rand(99000..1500000)
     percent_change = (-3..3).to_a.sample.to_f / 100
     sold_price = sold ? price * (1 + percent_change) : nil
