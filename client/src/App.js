@@ -14,6 +14,7 @@ import UserShow from './pages/UserShow';
 import SkillShow from './pages/SkillShow';
 import Available from './pages/Available';
 import Cities from './pages/Cities';
+import CityCost from './pages/CityCost';
 import FindHomes from './pages/FindHomes';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route exact path='/available' component={Available} />
         <Route exact path='/cities' component={Cities} />
         <Route exact path='/homes' component={FindHomes} />
+        <Route exact path='/cityCost' component={CityCost} />
 {/* 
         <Route exact path='/users' component={Users} />
         <Route exact path='/users/:id' component={UserShow} />
