@@ -61,6 +61,7 @@ const Available = (props) => {
                                 <Table.HeaderCell>baths </Table.HeaderCell>
                                 <Table.HeaderCell>sq_ft</Table.HeaderCell>
                                 <Table.HeaderCell>price</Table.HeaderCell>
+                                <Table.HeaderCell>city</Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
 
@@ -71,6 +72,7 @@ const Available = (props) => {
                                     <Table.Cell>{property.baths}</Table.Cell>
                                     <Table.Cell>{property.sq_ft}</Table.Cell>
                                     <Table.Cell>{property.price}</Table.Cell>
+                                    <Table.Cell>{property.city}</Table.Cell>
 
                                 </Table.Row>
                             ))}

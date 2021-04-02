@@ -11,6 +11,10 @@ class Api::PropertiesController < ApplicationController
         render json: Address.city_list
     end
 
+    def city_cost
+      render json: Address.cost_by_city
+    end
+
     def city
      city = params[:city]
      render json: Property.by_city(city)
